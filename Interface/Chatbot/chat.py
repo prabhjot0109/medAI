@@ -48,8 +48,8 @@ model.eval()
 # symp_model.load_state_dict(symptom_model_state)
 # symp_model.eval()
 
-bot_name = "CureCrafters"
-print("Let's chat! (type 'quit' to exit)")
+bot_name = "\n\nmedAI\n\n"
+print("\nLet's chat! (type 'quit' to exit)\n")
 while True:
     # sentence = "do you use credit cards?"
     sentence = input("You: ")
