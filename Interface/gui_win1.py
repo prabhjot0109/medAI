@@ -125,6 +125,15 @@ class SecondWindow:
         self.image_3 = self.create_image("image_4.png", 631.0, 365.0)
 
         self.image_5 = self.create_image("image_3.png", 1131.0, 59.0)
+        self.button_50 = Button(
+            self.window,
+            image=self.image_5,
+            bg="#141416",
+            borderwidth=0,
+            highlightthickness=0,
+            command=self.on_button_50_click,
+        )
+        self.button_50.place(x=1100.0, y=25.0)
 
         self.image_6, self.button_3 = self.create_button(
             "image_2.png", 1165, 605.0, command=self._on_enter_pressed
@@ -186,6 +195,13 @@ class SecondWindow:
 
         self.image_7, self.button_4 = self.create_button("image_5.png", 1020.0, 620.0)
         self.button_4.configure(command=open_file_dialog)
+
+    def on_button_50_click(self):
+        self.window.destroy()
+        from gui_win2 import ThirdWindow
+
+        second_window = ThirdWindow(self.shared_data)
+        second_window.run()
 
     def _on_enter_pressed(self, event=None):
         msg = self.entry_1.get()

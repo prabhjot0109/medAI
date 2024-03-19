@@ -40,6 +40,15 @@ class ThirdWindow:
         self.image_1 = self.load_image("image_1.png", 50.0, 360.0)
         self.image_2 = self.load_image("image_2.png", 688.0, 85.0)
         self.image_3 = self.load_image("image_3.png", 1125.0, 44.0)
+        self.button_3 = Button(
+            self.window,
+            image=self.image_3,
+            bg="#141416",
+            borderwidth=0,
+            highlightthickness=0,
+            command=self.on_button_3_click,
+        )
+        self.button_3.place(x=1090.0, y=5.0)
 
         self.text_widget = Text(
             self.window,
@@ -109,7 +118,12 @@ class ThirdWindow:
         self.text_widget.window_create("end", window=self.button_4)
         self.text_widget.insert("end", "\n\n\n")  # Add a newline after the button
 
-        # self.button_4.place(x=5.0, y=180.0)
+    def on_button_3_click(self):
+        self.window.destroy()
+        from gui_win1 import SecondWindow
+
+        second_window = SecondWindow(self.shared_data)
+        second_window.run()
 
     @staticmethod
     def relative_to_assets(path: str) -> Path:
