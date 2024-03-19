@@ -1,7 +1,7 @@
 from pathlib import Path
 from tkinter import Button, Tk, Canvas, PhotoImage
 from gui_win1 import SecondWindow
-from gui_win2 import ThirdWindow   
+from gui_win2 import ThirdWindow
 
 
 class MainWindow:
@@ -50,21 +50,19 @@ class MainWindow:
             command=self.on_button_2_click,
         )
 
-        self.button_3.place(x=0.0, y=210.0)
+        self.button_3.place(x=4.0, y=210.0)
 
         self.image_4 = self.load_image("image_4.png", 640.0, 50.0)
 
     def on_button_2_click(self):
         self.window.destroy()
         second_window = SecondWindow(self.shared_data)
-        second_window.run() 
-
+        second_window.run()
 
     def on_button_3_click(self):
         self.window.destroy()
         third_window = ThirdWindow(self.shared_data)
-        third_window.run() 
-
+        third_window.run()
 
     @staticmethod
     def relative_to_assets(path: str) -> Path:
