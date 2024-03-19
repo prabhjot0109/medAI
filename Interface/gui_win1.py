@@ -1,7 +1,6 @@
 from pathlib import Path
 from tkinter import Tk, Canvas, Entry, PhotoImage
 
-
 class MyWindow:
     OUTPUT_PATH = Path(__file__).parent
     ASSETS_PATH = OUTPUT_PATH / Path(r"assests_ui1")
@@ -23,10 +22,15 @@ class MyWindow:
         )
         self.canvas.place(x=0, y=0)
 
-        self.images = self.load_images()
-
-        for image in self.images:
-            self.canvas.create_image(image["x"], image["y"], image=image["image"])
+        self.image_1 = self.load_image("image_1.png", 182.0, 57.0)
+        self.image_2 = self.load_image("image_2.png", 1139.0, 647.0)
+        self.image_3 = self.load_image("image_3.png", 1214.597900390625, 643.0)
+        self.image_4 = self.load_image("image_4.png", 631.0, 360.0)
+        self.image_5 = self.load_image("image_5.png", 1048.0, 644.0)
+        self.image_6 = self.load_image("image_6.png", 409.0, 233.0)
+        self.image_7 = self.load_image("image_7.png", 968.0, 233.0)
+        self.image_8 = self.load_image("image_8.png", 409.0, 445.0)
+        self.image_9 = self.load_image("image_9.png", 968.0, 446.0)
 
         self.canvas.create_text(
             233.0,
@@ -48,29 +52,10 @@ class MyWindow:
     def relative_to_assets(path: str) -> Path:
         return MyWindow.ASSETS_PATH / Path(path)
 
-    def load_images(self):
-        images = []
-        image_positions = [
-            (182.0, 57.0),
-            (1139.0, 647.0),
-            (1214.597900390625, 643.0),
-            (631.0, 360.0),
-            (1048.0, 644.0),
-            (409.0, 233.0),
-            (968.0, 233.0),
-            (409.0, 445.0),
-            (968.0, 446.0),
-        ]
-        for i in range(1, 10):
-            image = PhotoImage(file=self.relative_to_assets(f"image_{i}.png"))
-            images.append(
-                {
-                    "image": image,
-                    "x": image_positions[i - 1][0],
-                    "y": image_positions[i - 1][1],
-                }
-            )
-        return images
+    def load_image(self, image_path, x, y):
+        image = PhotoImage(file=self.relative_to_assets(image_path))
+        self.canvas.create_image(x, y, image=image)
+        return image
 
     def run(self):
         self.window.mainloop()

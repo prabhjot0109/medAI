@@ -1,7 +1,6 @@
 from pathlib import Path
 from tkinter import Tk, Canvas, PhotoImage
 
-
 class MyWindow:
     OUTPUT_PATH = Path(__file__).parent
     ASSETS_PATH = OUTPUT_PATH / Path(r"assests_ui2")
@@ -23,33 +22,19 @@ class MyWindow:
         )
         self.canvas.place(x=0, y=0)
 
-        self.images = self.load_images()
-
-        for image in self.images:
-            self.canvas.create_image(image["x"], image["y"], image=image["image"])
+        self.image_1 = self.load_image("image_1.png", 50.0, 360.0)
+        self.image_2 = self.load_image("image_2.png", 688.0, 107.0)
+        self.image_3 = self.load_image("image_3.png", 1125.0, 50.0)
+        self.image_4 = self.load_image("image_4.png", 674.0, 362.0)
 
     @staticmethod
     def relative_to_assets(path: str) -> Path:
         return MyWindow.ASSETS_PATH / Path(path)
 
-    def load_images(self):
-        images = []
-        image_positions = [
-            (50.0, 360.0),
-            (688.0, 107.0),
-            (1125.0, 50.0),
-            (674.0, 362.0),
-        ]
-        for i in range(1, 5):
-            image = PhotoImage(file=self.relative_to_assets(f"image_{i}.png"))
-            images.append(
-                {
-                    "image": image,
-                    "x": image_positions[i - 1][0],
-                    "y": image_positions[i - 1][1],
-                }
-            )
-        return images
+    def load_image(self, image_path, x, y):
+        image = PhotoImage(file=self.relative_to_assets(image_path))
+        self.canvas.create_image(x, y, image=image)
+        return image
 
     def run(self):
         self.window.mainloop()

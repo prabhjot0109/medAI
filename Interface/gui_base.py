@@ -23,36 +23,19 @@ class MyWindow:
         )
         self.canvas.place(x=0, y=0)
 
-        self.images = self.load_images()
-
-        for image in self.images:
-            self.canvas.create_image(image["x"], image["y"], image=image["image"])
+        self.image_1 = self.load_image("image_1.png", 633.0, 379.0)
+        self.image_2 = self.load_image("image_2.png", 52.0, 331.0)
+        self.image_3 = self.load_image("image_3.png", 52.0, 250.0)
+        self.image_4 = self.load_image("image_4.png", 640.0, 50.0)
 
     @staticmethod
     def relative_to_assets(path: str) -> Path:
         return MyWindow.ASSETS_PATH / Path(path)
 
-    def load_images(self):
-        images = []
-        image_positions = [
-            (640.0, 50.0),
-            (50.0, 360.0),
-            (638.0, 53.0),
-            (44.0, 155.0),
-            (52.0, 244.0),
-            (52.0, 331.0),
-            (653.0, 437.0),
-        ]
-        for i in range(1, 8):
-            image = PhotoImage(file=self.relative_to_assets(f"image_{i}.png"))
-            images.append(
-                {
-                    "image": image,
-                    "x": image_positions[i - 1][0],
-                    "y": image_positions[i - 1][1],
-                }
-            )
-        return images
+    def load_image(self, image_path, x, y):
+        image = PhotoImage(file=self.relative_to_assets(image_path))
+        self.canvas.create_image(x, y, image=image)
+        return image
 
     def run(self):
         self.window.mainloop()
