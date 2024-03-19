@@ -20,6 +20,7 @@ from PIL import Image, ImageTk
 import speech_recognition as sr
 import OCR as OCR
 
+
 # import Chatbot.chat as chat
 
 
@@ -86,6 +87,7 @@ class SecondWindow:
         self.image_7 = self.load_image("image_7.png", 968.0, 233.0)
         self.image_8 = self.load_image("image_8.png", 409.0, 445.0)
         self.image_9 = self.load_image("image_9.png", 968.0, 446.0)
+        self.image_10 = self.load_image("image_10.png", 1135.0, 56.0)
 
         self.canvas.create_text(
             233.0,
