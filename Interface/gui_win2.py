@@ -1,11 +1,13 @@
 from pathlib import Path
 from tkinter import Tk, Canvas, PhotoImage
 
-class MyWindow:
+
+class ThirdWindow:
     OUTPUT_PATH = Path(__file__).parent
     ASSETS_PATH = OUTPUT_PATH / Path(r"assests_ui2")
 
-    def __init__(self):
+    def __init__(self, shared_data=None):
+        self.shared_data = shared_data
         self.window = Tk()
         self.window.geometry("1280x720")
         self.window.configure(bg="#141416")
@@ -23,13 +25,13 @@ class MyWindow:
         self.canvas.place(x=0, y=0)
 
         self.image_1 = self.load_image("image_1.png", 50.0, 360.0)
-        self.image_2 = self.load_image("image_2.png", 688.0, 107.0)
-        self.image_3 = self.load_image("image_3.png", 1125.0, 50.0)
+        self.image_2 = self.load_image("image_2.png", 688.0, 100.0)
+        self.image_3 = self.load_image("image_3.png", 1125.0, 58.0)
         self.image_4 = self.load_image("image_4.png", 674.0, 362.0)
 
     @staticmethod
     def relative_to_assets(path: str) -> Path:
-        return MyWindow.ASSETS_PATH / Path(path)
+        return ThirdWindow.ASSETS_PATH / Path(path)
 
     def load_image(self, image_path, x, y):
         image = PhotoImage(file=self.relative_to_assets(image_path))
@@ -41,4 +43,4 @@ class MyWindow:
 
 
 if __name__ == "__main__":
-    MyWindow().run()
+    ThirdWindow().run()

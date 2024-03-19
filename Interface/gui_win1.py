@@ -1,11 +1,14 @@
 from pathlib import Path
 from tkinter import Tk, Canvas, Entry, PhotoImage
 
-class MyWindow:
+
+class SecondWindow:
     OUTPUT_PATH = Path(__file__).parent
     ASSETS_PATH = OUTPUT_PATH / Path(r"assests_ui1")
 
-    def __init__(self):
+    def __init__(self, shared_data=None):
+        self.shared_data = shared_data
+
         self.window = Tk()
         self.window.geometry("1280x720")
         self.window.configure(bg="#141416")
@@ -23,7 +26,7 @@ class MyWindow:
         self.canvas.place(x=0, y=0)
 
         self.image_1 = self.load_image("image_1.png", 182.0, 57.0)
-        self.image_2 = self.load_image("image_2.png", 1139.0, 647.0)
+        self.image_2 = self.load_image("image_2.png", 1128.0, 647.0)
         self.image_3 = self.load_image("image_3.png", 1214.597900390625, 643.0)
         self.image_4 = self.load_image("image_4.png", 631.0, 360.0)
         self.image_5 = self.load_image("image_5.png", 1048.0, 644.0)
@@ -50,16 +53,19 @@ class MyWindow:
 
     @staticmethod
     def relative_to_assets(path: str) -> Path:
-        return MyWindow.ASSETS_PATH / Path(path)
+        return SecondWindow.ASSETS_PATH / Path(path)
 
     def load_image(self, image_path, x, y):
         image = PhotoImage(file=self.relative_to_assets(image_path))
         self.canvas.create_image(x, y, image=image)
         return image
 
+    def some_method(self):
+        data = self.shared_data["key"]
+
     def run(self):
         self.window.mainloop()
 
 
 if __name__ == "__main__":
-    MyWindow().run()
+    SecondWindow().run()
