@@ -1,5 +1,7 @@
 from pathlib import Path
-from tkinter import Button, Tk, Canvas, PhotoImage
+from tkinter import Button, Tk, Label, Canvas, PhotoImage
+
+import requests
 from gui_win1 import SecondWindow
 from gui_win2 import ThirdWindow
 
@@ -54,6 +56,9 @@ class MainWindow:
 
         self.image_4 = self.load_image("image_4.png", 640.0, 50.0)
 
+        self.api_code_label = Label(self.window, text="", bg="#141416", fg="#FFFFFF")
+        self.api_code_label.place(x=100, y=700)  # Adjust the y value as needed
+
     def on_button_2_click(self):
         self.window.destroy()
         second_window = SecondWindow(self.shared_data)
@@ -73,7 +78,29 @@ class MainWindow:
         self.canvas.create_image(x, y, image=image)
         return image
 
+    def update_api_code(self):
+        # Define the API URL
+        api_url = "http://13.48.136.54:8000/api/api-code/"
+        # Define the access key
+        access_key = "480c2773-abda-4714-b5fc-082845ed516d"
+        # Set up the headers with the access key
+        headers = {"Authorization": f"Bearer {access_key}"}
+        # Send the POST request
+        response = requests.post(api_url, headers=headers)
+        # Check if the request was successful
+        if response.status_code == 200:
+            # Extract the API code from the response
+            api_code = response.json().get("api_code")
+            # Update the Label widget with the API code
+            self.api_code_label.config(text=f"API Code: {api_code}")
+        else:
+            # Handle errors
+            self.api_code_label.config(
+                text=f"Error: {response.status_code} {response.text}"
+            )
+
     def run(self):
+        self.update_api_code()
         self.window.mainloop()
 
 
