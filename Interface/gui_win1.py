@@ -87,7 +87,7 @@ class SecondWindow:
             highlightthickness=0,
         )
 
-        self.text_widget.place(height=490, width=1150, rely=0.08, x=130, y=40)
+        self.text_widget.place(height=490, width=1146, rely=0.08, x=130, y=40)
         self.text_widget.configure(cursor="arrow", state=NORMAL)
         self.text_widget.image = []
 
@@ -122,7 +122,7 @@ class SecondWindow:
             "image_1.png", 1110.0, 630.0, command=recognize_speech
         )
 
-        self.image_3 = self.create_image("image_4.png", 631.0, 360.0)
+        self.image_3 = self.create_image("image_4.png", 631.0, 365.0)
 
         self.image_5 = self.create_image("image_3.png", 1131.0, 59.0)
 
@@ -143,10 +143,12 @@ class SecondWindow:
             )
             print(filepath)
 
-            self.text_widget.insert("end", "\n\n")
+            self.text_widget.insert("end", "\n\n\n")
             image = Image.open(filepath)
+
             photo = ImageTk.PhotoImage(image)
             self.text_widget.image_create("end", image=photo)
+
             self.text_widget.insert("end", "\n\n\n")
             self.text_widget.image.append(photo)
 
@@ -162,7 +164,7 @@ class SecondWindow:
             )  # Add a new line and a bullet point before each line
 
             # Add a title or header
-            title = "Medicine Description - \n"
+            title = "\n\nMedicine Description - \n"
 
             # Insert the formatted content into the Text widget
             self.text_widget.configure(state="normal")  # Enable the widget
@@ -207,6 +209,9 @@ class SecondWindow:
         # self.text_widget.insert(END, msg2)
 
         self.text_widget.configure(state=DISABLED)
+
+    def run(self):
+        pass
 
 
 if __name__ == "__main__":

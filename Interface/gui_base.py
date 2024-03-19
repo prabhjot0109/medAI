@@ -57,7 +57,7 @@ class MainWindow:
         self.image_4 = self.load_image("image_4.png", 640.0, 50.0)
 
         self.api_code_label = Label(self.window, text="", bg="#141416", fg="#FFFFFF")
-        self.api_code_label.place(x=100, y=700)  # Adjust the y value as needed
+        self.api_code_label.place(x=100, y=700)
 
     def on_button_2_click(self):
         self.window.destroy()
