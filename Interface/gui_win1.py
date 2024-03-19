@@ -1,5 +1,7 @@
 from pathlib import Path
-from tkinter import Tk, Canvas, Entry, PhotoImage
+from tkinter import Button, Tk, Canvas, Entry, PhotoImage
+import speech_recognition as sr
+import tkinter as tk
 
 
 class SecondWindow:
@@ -26,7 +28,38 @@ class SecondWindow:
         self.canvas.place(x=0, y=0)
 
         self.image_1 = self.load_image("image_1.png", 182.0, 57.0)
-        self.image_2 = self.load_image("image_2.png", 1128.0, 647.0)
+        
+        def recognize_speech():
+            recognizer = sr.Recognizer()
+            with sr.Microphone() as source:
+                print("Listening...")
+                audio = recognizer.listen(source)
+            try:
+                recognized_text = recognizer.recognize_google(audio)
+                # Update GUI with recognized text
+                self.entry_1.delete(0, tk.END)
+                self.entry_1.insert(tk.END, recognized_text)
+            except sr.UnknownValueError:
+                print("Speech Recognition could not understand audio")
+            except sr.RequestError as e:
+                print(
+                    "Could not request results from Speech Recognition service; {0}".format(
+                        e
+                    )
+                )
+
+        self.image_2 = self.load_image("image_2.png", 1128.0, 648.0)
+        self.button_2 = Button(
+            self.window,
+            image=self.image_2,
+            command=recognize_speech,
+            bg="#141416",  # Same as the background
+            bd=0,  # No border
+            highlightthickness=0,  # No highlight when focus is in this widget
+            relief='flat'  # No 3d button look
+        )
+        self.button_2.place(x=1110.0, y=620.0)
+        
         self.image_3 = self.load_image("image_3.png", 1214.597900390625, 643.0)
         self.image_4 = self.load_image("image_4.png", 631.0, 360.0)
         self.image_5 = self.load_image("image_5.png", 1048.0, 644.0)
@@ -51,6 +84,7 @@ class SecondWindow:
         self.entry_1 = Entry(bd=0, bg="#1A1A1F", fg="#000716", highlightthickness=0)
         self.entry_1.place(x=186.0, y=593.0, width=756.0, height=98.0)
 
+        
     @staticmethod
     def relative_to_assets(path: str) -> Path:
         return SecondWindow.ASSETS_PATH / Path(path)
