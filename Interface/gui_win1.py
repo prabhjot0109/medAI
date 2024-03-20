@@ -20,6 +20,11 @@ from PIL import Image, ImageTk
 import speech_recognition as sr
 import OCR as OCR
 
+import sys
+
+sys.path.append("D:\Coding\Prayatna Hackathon\medAI\Interface\Chatbot")
+from chat import chat
+
 
 class SecondWindow:
     OUTPUT_PATH = Path(__file__).parent
@@ -217,6 +222,23 @@ class SecondWindow:
         self.text_widget.insert(END, msg1)
         self.text_widget.configure(state=DISABLED)
         self.text_widget.see(END)
+
+        response = chat(msg)
+        msg2 = f"MedAI : {response}\n\n"
+        self.text_widget.configure(state=NORMAL)
+        self.text_widget.insert(END, msg2)
+        self.text_widget.configure(state=DISABLED)
+        self.text_widget.see(END)
+        # def _insert_message(self, msg, sender):
+        #     if not msg:
+        #         return
+
+        #     self.entry_1.delete(0, END)
+        #     msg1 = f"{sender}: {msg}\n\n"
+        #     self.text_widget.configure(state=NORMAL)
+        #     self.text_widget.insert(END, msg1)
+        #     self.text_widget.configure(state=DISABLED)
+        #     self.text_widget.see(END)
 
         # msg2 = f"{bot_name}: {get_response(msg)}\n\n"
 
