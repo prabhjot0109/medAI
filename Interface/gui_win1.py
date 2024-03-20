@@ -24,6 +24,8 @@ import sys
 
 sys.path.append("D:\Coding\Prayatna Hackathon\medAI\Interface\Chatbot")
 from chat import chat
+from disease_prediction_model import generate_text
+from disease_prediction_model import plot_diseases
 
 
 class SecondWindow:
@@ -123,6 +125,7 @@ class SecondWindow:
         self.image_1, self.entry_1 = self.create_entry(
             "entry_1.png", 250.0, 600.0, 660.0, 100.0
         )
+        text = self.entry_1.get()
         self.image_2, self.button_2 = self.create_button(
             "image_1.png", 1110.0, 630.0, command=recognize_speech
         )
@@ -210,9 +213,22 @@ class SecondWindow:
 
     def _on_enter_pressed(self, event=None):
         msg = self.entry_1.get()
-        self._insert_message(msg, "You ")
+        if msg.startswith("Predict Disease:"):
+            symptoms = msg[16:]  # Extract the symptoms from the message
+            response = generate_text(symptoms)
 
-    def _insert_message(self, msg, sender):
+            labels, values = generate_text(symptoms)  # Call disease prediction model
+            plot_diseases(labels, values)  # Display the chart
+            response = ", ".join(labels)
+            self._insert_message(response, "MedAI ", send=False)  
+
+            # Convert the list of diseases to a string
+        
+            self._insert_message(response, "MedAI ")
+        else:
+            self._insert_message(msg, "You ")
+
+    def _insert_message(self, msg, sender, send=True):
         if not msg:
             return
 
@@ -222,13 +238,40 @@ class SecondWindow:
         self.text_widget.insert(END, msg1)
         self.text_widget.configure(state=DISABLED)
         self.text_widget.see(END)
+        
+        if send:
+        # Send the message to the chatbot here
+            pass
 
-        response = chat(msg)
+        if msg.startswith("Predict Disease:"):
+            symptoms = msg[16:]  # Extract the disease name from the message
+            response = generate_text(symptoms)  # Call disease prediction model
+        else:
+            response = chat(msg)  # Call the primary model
+
         msg2 = f"MedAI : {response}\n\n"
         self.text_widget.configure(state=NORMAL)
         self.text_widget.insert(END, msg2)
         self.text_widget.configure(state=DISABLED)
         self.text_widget.see(END)
+        # def _insert_message(self, msg, sender):
+        #     if not msg:
+        #         return
+
+        #     self.entry_1.delete(0, END)
+        #     msg1 = f"{sender}: {msg}\n\n"
+        #     self.text_widget.configure(state=NORMAL)
+        #     self.text_widget.insert(END, msg1)
+        #     self.text_widget.configure(state=DISABLED)
+        #     self.text_widget.see(END)
+
+        #     response = chat(msg)
+        #     msg2 = f"MedAI : {response}\n\n"
+        #     self.text_widget.configure(state=NORMAL)
+        #     self.text_widget.insert(END, msg2)
+        #     self.text_widget.configure(state=DISABLED)
+        #     self.text_widget.see(END)
+
         # def _insert_message(self, msg, sender):
         #     if not msg:
         #         return
