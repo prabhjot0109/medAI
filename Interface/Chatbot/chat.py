@@ -53,7 +53,7 @@ def chat(sentence):
     if prob.item() > 0.75:
         for intent in intents["intents"]:
             if tag == intent["tag"]:
-                response = f"{bot_name}: "
+                response = f"{bot_name}"
 
                 for i in range(len(intent["responses"])):
                     response += intent["responses"][i] + "\n"
@@ -64,7 +64,7 @@ def chat(sentence):
                     for line in data:
                         if tag.lower() in line.split(",")[0].lower():
                             symptoms = [
-                                word.strip()
+                                "* " + word.strip()
                                 for word in line.split(",")[1:]
                                 if word.strip() != ""
                             ]
