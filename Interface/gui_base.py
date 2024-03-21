@@ -15,6 +15,7 @@ class MainWindow:
         self.window.geometry("1280x720")
         self.window.configure(bg="#141416")
         self.window.resizable(False, False)
+
         self.shared_data = {"key": "value"}
 
         self.canvas = Canvas(
@@ -79,22 +80,21 @@ class MainWindow:
         return image
 
     def update_api_code(self):
-        # Define the API URL
+
         api_url = "http://13.48.136.54:8000/api/api-code/"
-        # Define the access key
+        # Access key
         access_key = "480c2773-abda-4714-b5fc-082845ed516d"
-        # Set up the headers with the access key
+
         headers = {"Authorization": f"Bearer {access_key}"}
-        # Send the POST request
+
         response = requests.post(api_url, headers=headers)
-        # Check if the request was successful
+
         if response.status_code == 200:
-            # Extract the API code from the response
+            # ExtractS the API code from the response
             api_code = response.json().get("api_code")
-            # Update the Label widget with the API code
+            # UpdateS the Label widget with the API code
             self.api_code_label.config(text=f"API Code: {api_code}")
         else:
-            # Handle errors
             self.api_code_label.config(
                 text=f"Error: {response.status_code} {response.text}"
             )

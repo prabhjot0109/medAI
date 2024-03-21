@@ -83,7 +83,7 @@ class ThirdWindow:
             print(filepath)
 
             if filepath:
-                # Check if a file was selected
+                # Checks if a file was selected
                 image = Image.open(filepath)
                 photo = ImageTk.PhotoImage(image)
 
